@@ -349,3 +349,73 @@ export const containsData = [
   { BasketID: "B009", ISBN: "9789012345678", Number: 3 },
   { BasketID: "B010", ISBN: "9780123456789", Number: 11 },
 ];
+
+export const reservationColumn = ["ReservationID", "CustomerID", "Reservation_date", "Pickup_time"];
+
+export const reservationData = [
+  {
+    ReservationID: 1,
+    CustomerID: "C001",
+    Reservation_date: "2024-12-14",
+    Pickup_time: "10:00 AM",
+  },
+  {
+    ReservationID: 2,
+    CustomerID: "C002",
+    Reservation_date: "2024-12-14",
+    Pickup_time: "11:00 AM",
+  },
+  {
+    ReservationID: 3,
+    CustomerID: "C003",
+    Reservation_date: "2024-12-14",
+    Pickup_time: "12:00 PM",
+  },
+  {
+    ReservationID: 4,
+    CustomerID: "C004",
+    Reservation_date: "2024-12-14",
+    Pickup_time: "01:00 PM",
+  },
+  {
+    ReservationID: 5,
+    CustomerID: "C005",
+    Reservation_date: "2024-12-14",
+    Pickup_time: "02:00 PM",
+  },
+  {
+    ReservationID: 6,
+    CustomerID: "C006",
+    Reservation_date: "2024-12-14",
+    Pickup_time: "03:00 PM",
+  },
+  {
+    ReservationID: 7,
+    CustomerID: "C007",
+    Reservation_date: "2024-12-14",
+    Pickup_time: "04:00 PM",
+  },
+  {
+    ReservationID: 8,
+    CustomerID: "C008",
+    Reservation_date: "2024-12-14",
+    Pickup_time: "05:00 PM",
+  },
+  {
+    ReservationID: 9,
+    CustomerID: "C009",
+    Reservation_date: "2024-12-14",
+    Pickup_time: "06:00 PM",
+  },
+];
+
+export const shopping_basketColumn = ["BasketID", "Order_date"];
+
+export const shopping_basketData = [
+  { BasketID: 1, Order_date: "2024-12-14" },
+  { BasketID: 2, Order_date: "2024-12-14" },
+  { BasketID: 3, Order_date: "2024-12-14" },
+  { BasketID: 4, Order_date: "2024-12-14" },
+  { BasketID: 5, Order_date: "2024-12-14" },
+];
+

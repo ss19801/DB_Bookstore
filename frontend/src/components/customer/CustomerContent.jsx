@@ -14,10 +14,13 @@ import {
   inventoryColumn,
   containsData,
   containsColumn,
+  reservationData,
+  reservationColumn,
+  shopping_basketColumn,
+  shopping_basketData
 } from "../../assets/arrays/table";
 
 const Arr = ["Search", "Reservation", "Shopping_Basket"];
-const Arr2 = ["Book", "Author", "Award"];
 
 const Style = {
   Wrapper: styled.div`
@@ -41,7 +44,6 @@ const Style = {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    padding-top: 20px;
     gap: 10px;
   `,
   Button: styled.button`
@@ -76,19 +78,16 @@ const Style = {
   `,
 
   TopWrapper: styled.div`
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    flex: 0.8;
+    flex-direction: row;
+    justify-content: space-evenly;
   `,
   DropdownWrapper: styled.div`
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
+
   `,
   SearchBarWrapper: styled.div`
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
+
   `,
 };
 
@@ -96,30 +95,17 @@ function CustomerContent() {
   const [activeTable, setActiveTable] = useState("Book");
   const [activeData, setActiveData] = useState(bookData);
   const [activeColumn, setActiveColumn] = useState(bookColumn);
+  const [searchText, setSearchText] = useState("");
 
-  const [isEdit, setIsEdit] = useState(false);
-  const [isAdd, setIsAdd] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
-
-  const [resetCheckbox, setResetCheckbox] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
 
   const handleDataChange = (updatedData) => {
     setActiveData(updatedData);
   };
-
-  const handleAddRow = (newRow) => {
-    setActiveData((prevData) => [...prevData, newRow]);
-  };
-
-  const handleDeleteRows = (rowsToDelete) => {
-    setActiveData((prevData) =>
-      prevData.filter((_, index) => !rowsToDelete.includes(index))
-    );
-    setIsDelete(false); // 삭제 모드 종료
-  };
-
+  
   useEffect(() => {
-    if (activeTable === "Book") {
+    if (activeTable === "Book" || activeTable === "Search") {
+      setIsSearch(true);
       setActiveData(bookData);
       setActiveColumn(bookColumn);
     } else if (activeTable === "Author") {
@@ -137,9 +123,19 @@ function CustomerContent() {
     } else if (activeTable === "Contains") {
       setActiveData(containsData);
       setActiveColumn(containsColumn);
+    } else if(activeTable === "Reservation"){
+      setActiveData(reservationData);
+      setActiveColumn(reservationColumn);
+    } else if (activeTable === "Shopping_Basket") {
+      setActiveData(containsData);
+      setActiveColumn(containsColumn);
     }
-    setResetCheckbox(true);
   }, [activeTable]);
+
+  const onClickSearch = (text) => {
+    // text 검색 함수
+  }
+
   return (
     <Style.Wrapper>
       <Style.SideWrapper>
@@ -158,34 +154,49 @@ function CustomerContent() {
         </Style.Sidebar>
       </Style.SideWrapper>
       <Style.TableWrapper>
-        <Style.TopWrapper>
-          <Style.DropdownWrapper>
-            <select>
-              <option value="Book">Book</option>
-              <option value="Author">Author</option>
-              <option value="Award">Award</option>
-            </select>
-          </Style.DropdownWrapper>
-          <Style.SearchBarWrapper>
-            <input type="text" placeholder="검색어를 입력하세요" />
-            <button type="button">검색</button>
-          </Style.SearchBarWrapper>
-        </Style.TopWrapper>
+        {(activeTable === "Search" ||
+          activeTable === "Book" ||
+          activeTable === "Author" ||
+          activeTable === "Award") && (
+          <Style.TopWrapper>
+            <Style.DropdownWrapper>
+              <select onChange={(e) => setActiveTable(e.target.value)}>
+                <option value="Book">Book</option>
+                <option value="Author">Author</option>
+                <option value="Award">Award</option>
+              </select>
+            </Style.DropdownWrapper>
+            <Style.SearchBarWrapper>
+              <input
+                type="text"
+                placeholder="검색어를 입력하세요"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+              <button type="button" onClick={() => onClickSearch(searchText)}>
+                검색
+              </button>
+            </Style.SearchBarWrapper>
+          </Style.TopWrapper>
+        )}
         <TableComponent
           data={activeData}
           column={activeColumn}
-          isEdit={isEdit}
-          isAdd={isAdd}
-          isDelete={isDelete}
           onDataChange={handleDataChange}
-          onDeleteRows={handleDeleteRows}
-          onAddRow={handleAddRow}
-          resetCheckbox={resetCheckbox}
-          onResetCheckboxComplete={() => setResetCheckbox(false)}
+          isSearch={isSearch}
         />
       </Style.TableWrapper>
       <Style.ButtonWrapper>
-        <Style.Button onClick={() => setIsEdit(!isEdit)}>장바구니</Style.Button>
+        {activeTable === "Search" ? (
+          <Style.Button>장바구니</Style.Button>
+        ) : activeTable === "Reservation" ? (
+          <>
+            <Style.Button>submit</Style.Button>
+            <Style.Button>delete</Style.Button>
+          </>
+        ) : (
+          <Style.Button>delete</Style.Button>
+        )}
       </Style.ButtonWrapper>
     </Style.Wrapper>
   );

@@ -29,7 +29,6 @@ const Style = {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    padding-top: 20px;
     gap: 10px;
   `,
   Button: styled.button`
