@@ -28,12 +28,11 @@ const Style = {
   `,
 
   SideWrapper: styled.div`
-    position: absolute;
+    flex: 1; /* 너비 비율 */
     height: 100%;
-    //background-color: pink;
-    :last-child {
-      padding: 0;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
   `,
 
   Sidebar: styled.div`
@@ -44,8 +43,6 @@ const Style = {
     align-items: center;
     padding-top: 20px;
     gap: 10px;
-
-    //background-color: black;
   `,
   Button: styled.button`
     width: 100px;
@@ -61,7 +58,7 @@ const Style = {
   `,
 
   TableWrapper: styled.div`
-    //flex: 0.8;
+    flex: 2; /* 더 넓게 설정 */
     height: 100%;
     display: flex;
     justify-content: center;
@@ -70,11 +67,12 @@ const Style = {
   `,
 
   ButtonWrapper: styled.div`
-    flex: 0.2;
+    flex: 1; /* 너비 비율 */
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
   `,
 
   TopWrapper: styled.div`
@@ -161,8 +159,17 @@ function CustomerContent() {
       </Style.SideWrapper>
       <Style.TableWrapper>
         <Style.TopWrapper>
-          <Style.DropdownWrapper>드롭박스</Style.DropdownWrapper>
-          <Style.SearchBarWrapper>SearchBar</Style.SearchBarWrapper>
+          <Style.DropdownWrapper>
+            <select>
+              <option value="Book">Book</option>
+              <option value="Author">Author</option>
+              <option value="Award">Award</option>
+            </select>
+          </Style.DropdownWrapper>
+          <Style.SearchBarWrapper>
+            <input type="text" placeholder="검색어를 입력하세요" />
+            <button type="button">검색</button>
+          </Style.SearchBarWrapper>
         </Style.TopWrapper>
         <TableComponent
           data={activeData}
